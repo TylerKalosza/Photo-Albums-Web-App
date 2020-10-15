@@ -147,6 +147,7 @@
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="ViewModels\AlbumThumbnailViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
