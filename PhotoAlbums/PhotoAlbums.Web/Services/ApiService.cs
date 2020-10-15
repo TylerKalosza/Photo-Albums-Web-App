@@ -53,13 +53,19 @@ namespace PhotoAlbums.Web.Services
                     // Deserialize response into AlbumDto objects.
                     var albumDtos = await response.Content.ReadAsAsync<IEnumerable<AlbumDto>>();
 
-                    // Create Album objects from the DTOs.
-                    var albums = albumDtos.Select(dto => new Album
+                    var albums = new List<Album>();
+
+                    // Loop through DTOs and create Album objects.
+                    foreach (var albumDto in albumDtos)
                     {
-                        Id = dto.Id,
-                        Title = dto.Title,
-                        User = users.SingleOrDefault(u => u.Id == dto.UserId)
-                    });
+                        albums.Add(
+                            new Album
+                            {
+                                Id = albumDto.Id,
+                                Title = albumDto.Title,
+                                User = users.SingleOrDefault(x => x.Id == albumDto.UserId)
+                            });
+                    }
 
                     return albums;
                 }
@@ -85,15 +91,21 @@ namespace PhotoAlbums.Web.Services
                     // Deserialize response into PhotoDto objects.
                     var photoDtos = await response.Content.ReadAsAsync<IEnumerable<PhotoDto>>();
 
-                    // Create Photo objects from the DTOs.
-                    var photos = photoDtos.Select(dto => new Photo
+                    var photos = new List<Photo>();
+
+                    // Loop through DTOs and create Photo objects.
+                    foreach (var photoDto in photoDtos)
                     {
-                        Id = dto.Id,
-                        Title = dto.Title,
-                        Url = dto.Url,
-                        ThumbnailUrl = dto.ThumbnailUrl,
-                        Album = albums.SingleOrDefault(a => a.Id == dto.AlbumId)
-                    });
+                        photos.Add(
+                            new Photo
+                            {
+                                Id = photoDto.Id,
+                                Title = photoDto.Title,
+                                Url = photoDto.Url,
+                                ThumbnailUrl = photoDto.ThumbnailUrl,
+                                Album = albums.SingleOrDefault(x => x.Id == photoDto.AlbumId)
+                            });
+                    }
 
                     return photos;
                 }
