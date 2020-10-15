@@ -1,6 +1,6 @@
 ﻿namespace PhotoAlbums.Web.Models
 {
-    public class Addess
+    public class Address
     {
         public string Street { get; set; }
         public string Suite { get; set; }
