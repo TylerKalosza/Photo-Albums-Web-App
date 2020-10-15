@@ -177,7 +177,6 @@ namespace PhotoAlbums.Web.Services
                     if (response.IsSuccessStatusCode == false)
                         throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
 
-
                     // Deserialize response into PhotoDto objects.
                     var photoDtos = await response.Content.ReadAsAsync<IEnumerable<PhotoDto>>();
 
@@ -198,6 +197,45 @@ namespace PhotoAlbums.Web.Services
                     }
 
                     return photos;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets all the posts for a single user from the API and deserializes them into objects.
+        /// </summary>
+        /// <param name="user">The user used to filter the request and associate the posts to.</param>
+        /// <returns>An enumerable of the Post model.</returns>
+        public static async Task<IEnumerable<Post>> GetPostsAsync(User user)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = _baseAddress;
+
+                using (var response = await client.GetAsync($"/users/{user.Id}/posts"))
+                {
+                    if (response.IsSuccessStatusCode == false)
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+
+                    // Deserialize response into PhotoDto objects.
+                    var postDtos = await response.Content.ReadAsAsync<IEnumerable<PostDto>>();
+
+                    var posts = new List<Post>();
+
+                    // Loop through DTOs and create Photo objects.
+                    foreach (var postDto in postDtos)
+                    {
+                        posts.Add(
+                            new Post
+                            {
+                                Id = postDto.Id,
+                                User = user,
+                                Title = postDto.Title,
+                                Body = postDto.Body
+                            });
+                    }
+
+                    return posts;
                 }
             }
         }
