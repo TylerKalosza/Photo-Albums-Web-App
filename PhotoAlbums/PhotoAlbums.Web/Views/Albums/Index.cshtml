@@ -4,10 +4,10 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Home - Photo Album Demo";
+    ViewBag.Title = "Home";
 }
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+@using (Html.BeginForm("Index", "Albums", FormMethod.Get))
 {
     <p>
         @Html.TextBox("searchString")
@@ -31,7 +31,7 @@
                 <li>Album ID: @albumVm.Album.Id</li>
                 <li>Thumbnail URL: @albumVm.ThumbnailUrl</li>
                 <li>Album Title: @Html.ActionLink(albumVm.Album.Title, "Show", "Albums", new { id = albumVm.Album.Id }, null)</li>
-                <li>User's Name: @albumVm.Album.User.Name</li>
+                <li>User's Name: @Html.ActionLink(albumVm.Album.User.Name, "Show", "Users", new { id = albumVm.Album.User.Id }, null)</li>
                 <li>User's Email: @albumVm.Album.User.Email</li>
                 <li>User's Phone #: @albumVm.Album.User.Phone</li>
             </ul>
