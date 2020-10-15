@@ -12,6 +12,7 @@
     <p>
         @Html.TextBox("searchString")
         <input type="submit" value="Search" />
+        @Html.ActionLink("Reset Filter", "Index", new { controller = "Albums" }, null)
     </p>
 }
 
