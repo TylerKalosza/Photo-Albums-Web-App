@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace PhotoAlbums.Web.Controllers
 {
-    public class HomeController : Controller
+    public class AlbumsController : Controller
     {
         public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
