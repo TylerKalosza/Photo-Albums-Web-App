@@ -8,3 +8,5 @@ A simple exercise that demonstrates pulling data from an API and displaying it.
 - HTML 5
 - Visual Studio
 - NuGet Package Manager
+### Source Data
+Data is being consumed from [{JSON} Placeholder](https://jsonplaceholder.typicode.com/)
