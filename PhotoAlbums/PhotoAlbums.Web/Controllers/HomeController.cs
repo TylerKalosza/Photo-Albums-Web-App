@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using PhotoAlbums.Web.Services;
+using PhotoAlbums.Web.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace PhotoAlbums.Web.Controllers
@@ -7,7 +10,16 @@ namespace PhotoAlbums.Web.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            return View();
+            var albums = await ApiService.GetAlbumsAsync();
+
+            var photos = await ApiService.GetPhotosAsync(albums);
+
+            var albumVms = albums.Select(album => new AlbumViewModel(
+                album,
+                photos.FirstOrDefault(photo => photo.Album?.Id == album.Id)?.ThumbnailUrl)
+            );
+
+            return View(albumVms);
         }
     }
 }
