@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<PhotoAlbums.Web.ViewModels.AlbumViewModel>
+﻿@model PagedList.IPagedList<PhotoAlbums.Web.ViewModels.AlbumThumbnailViewModel>
 @using PagedList.Mvc;
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -30,7 +30,7 @@
             <ul>
                 <li>Album ID: @albumVm.Album.Id</li>
                 <li>Thumbnail URL: @albumVm.ThumbnailUrl</li>
-                <li>Album Title: @albumVm.Album.Title</li>
+                <li>Album Title: @Html.ActionLink(albumVm.Album.Title, "Show", "Albums", new { id = albumVm.Album.Id }, null)</li>
                 <li>User's Name: @albumVm.Album.User.Name</li>
                 <li>User's Email: @albumVm.Album.User.Email</li>
                 <li>User's Phone #: @albumVm.Album.User.Phone</li>

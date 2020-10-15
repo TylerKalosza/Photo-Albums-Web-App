@@ -1,0 +1,19 @@
+﻿@model PhotoAlbums.Web.ViewModels.AlbumViewModel
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>@Model.Album.Title</h2>
+
+<ol>
+    @foreach (var photo in Model.Photos)
+    {
+        <li>
+            <ul>
+                <li>Thumbnail: @photo.ThumbnailUrl</li>
+                <li>Title: @photo.Title</li>
+            </ul>
+        </li>
+    }
+</ol>

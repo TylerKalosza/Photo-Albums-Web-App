@@ -2,6 +2,7 @@
 using PhotoAlbums.Web.Services;
 using PhotoAlbums.Web.ViewModels;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -29,8 +30,8 @@ namespace PhotoAlbums.Web.Controllers
 
             var photos = await ApiService.GetPhotosAsync(albums);
 
-            // Create the AlbumViewModels that will be used in the view.
-            var albumVms = albums.Select(album => new AlbumViewModel(
+            // Create the AlbumThumbnailViewModels that will be used in the view.
+            var albumThumbVms = albums.Select(album => new AlbumThumbnailViewModel(
                 album,
                 photos.FirstOrDefault(photo => photo.Album?.Id == album.Id)?.ThumbnailUrl)
             );
@@ -38,7 +39,22 @@ namespace PhotoAlbums.Web.Controllers
             var pageSize = 12;
             var pageNumber = page ?? 1;
 
-            return View(albumVms.ToPagedList(pageNumber, pageSize));
+            return View(albumThumbVms.ToPagedList(pageNumber, pageSize));
+        }
+
+        [Route("albums/{id}")]
+        public async Task<ActionResult> Show(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var album = await ApiService.GetAlbumAsync((int)id);
+            var photos = await ApiService.GetPhotosAsync(album);
+
+            // Create the AlbumViewModel that will be used in the view.
+            var albumVm = new AlbumViewModel(album, photos);
+
+            return View(albumVm);
         }
     }
 }
