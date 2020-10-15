@@ -1,4 +1,5 @@
-﻿using PhotoAlbums.Web.Services;
+﻿using PagedList;
+using PhotoAlbums.Web.Services;
 using PhotoAlbums.Web.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,9 +9,16 @@ namespace PhotoAlbums.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<ActionResult> Index(string searchString)
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
             var albums = await ApiService.GetAlbumsAsync();
+
+            if (searchString == null)
+                searchString = currentFilter;
+            else
+                page = 1;
+
+            ViewBag.CurrentFilter = searchString;
 
             // Filter the data based on the search string matching part of the album title or user's name.
             if (!string.IsNullOrEmpty(searchString))
@@ -27,7 +35,10 @@ namespace PhotoAlbums.Web.Controllers
                 photos.FirstOrDefault(photo => photo.Album?.Id == album.Id)?.ThumbnailUrl)
             );
 
-            return View(albumVms);
+            var pageSize = 12;
+            var pageNumber = page ?? 1;
+
+            return View(albumVms.ToPagedList(pageNumber, pageSize));
         }
     }
 }

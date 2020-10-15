@@ -1,4 +1,7 @@
-﻿@model IEnumerable<PhotoAlbums.Web.ViewModels.AlbumViewModel>
+﻿@model PagedList.IPagedList<PhotoAlbums.Web.ViewModels.AlbumViewModel>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Home - Photo Album Demo";
@@ -11,6 +14,14 @@
         <input type="submit" value="Search" />
     </p>
 }
+
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+</div>
+
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+</div>
 
 <ol>
     @foreach (var albumVm in Model)
