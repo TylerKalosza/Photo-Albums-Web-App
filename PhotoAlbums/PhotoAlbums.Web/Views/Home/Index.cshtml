@@ -4,6 +4,14 @@
     ViewBag.Title = "Home - Photo Album Demo";
 }
 
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <p>
+        @Html.TextBox("searchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <ol>
     @foreach (var albumVm in Model)
     {
