@@ -7,35 +7,57 @@
     ViewBag.Title = "Home";
 }
 
-@using (Html.BeginForm("Index", "Albums", FormMethod.Get))
-{
-    <p>
-        @Html.TextBox("searchString")
-        <input type="submit" value="Search" />
-        @Html.ActionLink("Reset Filter", "Index", new { controller = "Albums" }, null)
-    </p>
-}
+<div class="container main-container shadow">
+    <section id="header" class="jumbotron">
+        <h1 id="headerTitle" class="display-3">Photo Albums</h1>
 
-<div>
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @using (Html.BeginForm("Index", "Albums", FormMethod.Get))
+        {
+            <div class="d-flex justify-content-center pt-5 pb-2">
+                @Html.TextBox("searchString", null, new { @class = "form-control", placeholder = "Search by album title or user's name" })
+            </div>
+            <div class="text-center pb-3">
+                <input type="submit" value="Search" class="btn btn-primary" />
+                @Html.ActionLink("Reset Filter", "Index", new { controller = "Albums" }, new { @class = "btn btn-secondary" })
+            </div>
+        }
+    </section>
+
+    <div class="container px-5">
+        @if (Model.PageCount > 1)
+        {
+            <div class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        }
+
+        <div class="row mt-3">
+            @foreach (var albumVm in Model)
+            {
+                <div class="col-6 col-lg-4 col-xl-3">
+                    <div class="card my-2">
+                        <img src="@albumVm.ThumbnailUrl" class="card-img-top" alt="@albumVm.Album.Title thumbnail" />
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.ActionLink(albumVm.Album.Title, "Show", "Albums", new { id = albumVm.Album.Id }, null)</h5>
+
+                            <p class="card-text mb-0"><strong>@Html.ActionLink(albumVm.Album.User.Name, "Show", "Users", new { id = albumVm.Album.User.Id }, null)</strong></p>
+                            <p class="card-text mb-0">@albumVm.Album.User.Email</p>
+                            <p class="card-text">@albumVm.Album.User.Phone</p>
+                            <p class="card-text mb-0">@albumVm.Album.User.Address.Street</p>
+                            <p class="card-text mb-0">@albumVm.Album.User.Address.Suite</p>
+                            <p class="card-text mb-0">@albumVm.Album.User.Address.City</p>
+                            <p class="card-text mb-0">@albumVm.Album.User.Address.ZipCode</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (Model.PageCount > 1)
+        {
+            <div class="text-center pb-5">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        }
+    </div>
 </div>
-
-<div>
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
-</div>
-
-<ol>
-    @foreach (var albumVm in Model)
-    {
-        <li>
-            <ul>
-                <li>Album ID: @albumVm.Album.Id</li>
-                <li>Thumbnail URL: @albumVm.ThumbnailUrl</li>
-                <li>Album Title: @Html.ActionLink(albumVm.Album.Title, "Show", "Albums", new { id = albumVm.Album.Id }, null)</li>
-                <li>User's Name: @Html.ActionLink(albumVm.Album.User.Name, "Show", "Users", new { id = albumVm.Album.User.Id }, null)</li>
-                <li>User's Email: @albumVm.Album.User.Email</li>
-                <li>User's Phone #: @albumVm.Album.User.Phone</li>
-            </ul>
-        </li>
-    }
-</ol>
