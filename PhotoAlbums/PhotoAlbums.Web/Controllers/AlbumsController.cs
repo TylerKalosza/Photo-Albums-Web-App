@@ -13,6 +13,7 @@ namespace PhotoAlbums.Web.Controllers
         public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
             var albums = await ApiService.GetAlbumsAsync();
+            if (albums == null) return RedirectToAction("Index", "Error");
 
             if (searchString == null)
                 searchString = currentFilter;
@@ -49,7 +50,10 @@ namespace PhotoAlbums.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var album = await ApiService.GetAlbumAsync((int)id);
+            if (album == null) return RedirectToAction("Index", "Error");
+
             var photos = await ApiService.GetPhotosAsync(album);
+            if (photos == null) return RedirectToAction("Index", "Error");
 
             // Create the AlbumViewModel that will be used in the view.
             var albumVm = new AlbumViewModel(album, photos);

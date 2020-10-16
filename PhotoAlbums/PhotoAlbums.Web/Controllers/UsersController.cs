@@ -16,7 +16,10 @@ namespace PhotoAlbums.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var user = await ApiService.GetUserAsync((int)id);
+            if (user == null) return RedirectToAction("Index", "Error");
+
             var posts = await ApiService.GetPostsAsync(user);
+            if (posts == null) return RedirectToAction("Index", "Error");
 
             // Create the UserViewModel that will be used in the view.
             var userVm = new UserViewModel(user, posts.ToArray());

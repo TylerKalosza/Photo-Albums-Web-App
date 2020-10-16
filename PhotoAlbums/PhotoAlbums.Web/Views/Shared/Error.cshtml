@@ -1,13 +1,11 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@{
+    ViewBag.Title = "Error";
+}
+
+<div class="container main-container shadow">
+    <section class="jumbotron">
+        <h1 class="display-4">Whoops, something went wrong!</h1>
+        <h2 class="display-5 mb-5">An error occurred while processing your request.</h2>
+        @Html.ActionLink("Return to Albums", "Index", new { controller = "Albums" }, new { @class = "btn btn-primary" })
+    </section>
+</div>
