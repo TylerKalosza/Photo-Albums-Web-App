@@ -4,6 +4,66 @@
     ViewBag.Title = Model.User.Name;
 }
 
-<h2>@Model.User.Name</h2>
+<div class="container main-container shadow">
+    <div class="container pt-3 px-4">
+        <div class="media">
+            <img src="~/Content/Images/user.png" class="align-self-start mr-3" alt="User profile silhouette" />
+            <div class="media-body">
+                <h2 class="mt-0">@Model.User.Name</h2>
 
+                <dl class="row">
+                    <dt class="col-sm-3">Username</dt>
+                    <dd class="col-sm-9">@Model.User.Username</dd>
 
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">@Model.User.Email</dd>
+
+                    <dt class="col-sm-3">Phone</dt>
+                    <dd class="col-sm-9">@Model.User.Phone</dd>
+
+                    <dt class="col-sm-3">Website</dt>
+                    <dd class="col-sm-9">@Model.User.Website</dd>
+
+                    <dt class="col-sm-3">Website</dt>
+                    <dd class="col-sm-9">@Model.User.Website</dd>
+
+                    <dt class="col-sm-3">Address</dt>
+                    <dd class="col-sm-9">
+                        @Model.User.Address.Street<br />
+                        @Model.User.Address.Suite<br />
+                        @Model.User.Address.City @Model.User.Address.ZipCode<br />
+                        <em>Lat: @Model.User.Address.Geo.Lat - Long: @Model.User.Address.Geo.Lng</em>
+                    </dd>
+
+                    <dt class="col-sm-3">Company Name</dt>
+                    <dd class="col-sm-9">@Model.User.Company.Name</dd>
+
+                    <dt class="col-sm-3">Catch Phrase</dt>
+                    <dd class="col-sm-9">@Model.User.Company.CatchPhrase</dd>
+
+                    <dt class="col-sm-3">BS</dt>
+                    <dd class="col-sm-9">@Model.User.Company.Bs</dd>
+                </dl>
+            </div>
+        </div>
+
+        <h3 class="mb-4">Posts</h3>
+
+        <div class="pb-5">
+            <div class="card">
+                @for (var i = 0; i < Model.Posts.Length; i++)
+                {
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Posts[i].Title</h5>
+                        <p class="card-text">@Model.Posts[i].Body</p>
+                    </div>
+
+                    if (i != Model.Posts.Length - 1)
+                    {
+                        <hr />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

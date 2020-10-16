@@ -1,5 +1,6 @@
 ﻿using PhotoAlbums.Web.Services;
 using PhotoAlbums.Web.ViewModels;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -18,7 +19,7 @@ namespace PhotoAlbums.Web.Controllers
             var posts = await ApiService.GetPostsAsync(user);
 
             // Create the UserViewModel that will be used in the view.
-            var userVm = new UserViewModel(user, posts);
+            var userVm = new UserViewModel(user, posts.ToArray());
 
             return View(userVm);
         }

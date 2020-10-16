@@ -6,9 +6,9 @@ namespace PhotoAlbums.Web.ViewModels
     public class UserViewModel
     {
         public User User { get; }
-        public IEnumerable<Post> Posts { get; }
+        public Post[] Posts { get; }
 
-        public UserViewModel(User user, IEnumerable<Post> posts)
+        public UserViewModel(User user, Post[] posts)
         {
             User = user;
             Posts = posts;
