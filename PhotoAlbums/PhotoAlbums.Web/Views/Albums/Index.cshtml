@@ -36,7 +36,7 @@
             {
                 <div class="col mb-4">
                     <div class="card h-100">
-                        <img src="@albumVm.ThumbnailUrl" class="card-img-top" alt="@albumVm.Album.Title thumbnail" />
+                        <a href="albums/@albumVm.Album.Id"><img src="@albumVm.ThumbnailUrl" class="card-img-top" alt="@albumVm.Album.Title thumbnail" /></a>
                         <div class="card-body">
                             <h5 class="card-title">@Html.ActionLink(albumVm.Album.Title, "Show", "Albums", new { id = albumVm.Album.Id }, null)</h5>
 
