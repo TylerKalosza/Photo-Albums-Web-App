@@ -30,6 +30,9 @@
                 <div class="alert alert-danger">
                     Search returned no matching items.
                 </div>
+                <div class="text-right">
+                    @Html.ActionLink("Return to Albums", "Index", new { controller = "Albums" }, new { @class = "btn btn-primary" })
+                </div>
             </div>
         }
         else
