@@ -25,7 +25,7 @@ namespace PhotoAlbums.Web.Services
                 using (var response = await client.GetAsync("/users"))
                 {
                     if (response.IsSuccessStatusCode == false)
-                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Ideally I would probably like to return a custom object that would force the controller to return a custom error page.
 
                     // Deserialize response into User objects.
                     return await response.Content.ReadAsAsync<IEnumerable<User>>();
@@ -47,7 +47,7 @@ namespace PhotoAlbums.Web.Services
                 using (var response = await client.GetAsync("/users/" + userId))
                 {
                     if (response.IsSuccessStatusCode == false)
-                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Ideally I would probably like to return a custom object that would force the controller to return a custom error page.
 
                     // Deserialize response into a User object.
                     return await response.Content.ReadAsAsync<User>();
@@ -70,7 +70,7 @@ namespace PhotoAlbums.Web.Services
                 using (var response = await client.GetAsync("/albums"))
                 {
                     if (response.IsSuccessStatusCode == false)
-                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Ideally I would probably like to return a custom object that would force the controller to return a custom error page.
 
                     // Deserialize response into AlbumDto objects.
                     var albumDtos = await response.Content.ReadAsAsync<IEnumerable<AlbumDto>>();
@@ -108,7 +108,7 @@ namespace PhotoAlbums.Web.Services
                 using (var response = await client.GetAsync("/albums/" + albumId))
                 {
                     if (response.IsSuccessStatusCode == false)
-                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Ideally I would probably like to return a custom object that would force the controller to return a custom error page.
 
                     // Deserialize response into AlbumDto objects.
                     var albumDto = await response.Content.ReadAsAsync<AlbumDto>();
@@ -135,7 +135,7 @@ namespace PhotoAlbums.Web.Services
                 using (var response = await client.GetAsync("/photos"))
                 {
                     if (response.IsSuccessStatusCode == false)
-                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Ideally I would probably like to return a custom object that would force the controller to return a custom error page.
 
                     // Deserialize response into PhotoDto objects.
                     var photoDtos = await response.Content.ReadAsAsync<IEnumerable<PhotoDto>>();
@@ -175,7 +175,7 @@ namespace PhotoAlbums.Web.Services
                 using (var response = await client.GetAsync($"/albums/{album.Id}/photos"))
                 {
                     if (response.IsSuccessStatusCode == false)
-                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Ideally I would probably like to return a custom object that would force the controller to return a custom error page.
 
                     // Deserialize response into PhotoDto objects.
                     var photoDtos = await response.Content.ReadAsAsync<IEnumerable<PhotoDto>>();
@@ -215,7 +215,7 @@ namespace PhotoAlbums.Web.Services
                 using (var response = await client.GetAsync($"/users/{user.Id}/posts"))
                 {
                     if (response.IsSuccessStatusCode == false)
-                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Todo: This is temporary code, replace this with proper error handling.
+                        throw new Exception((int)response.StatusCode + " - " + response.StatusCode.ToString()); // Ideally I would probably like to return a custom object that would force the controller to return a custom error page.
 
                     // Deserialize response into PhotoDto objects.
                     var postDtos = await response.Content.ReadAsAsync<IEnumerable<PostDto>>();
